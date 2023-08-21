@@ -26,6 +26,10 @@ void OpenTherm::begin(void(*handleInterruptCallback)(void), void(*processRespons
   if (handleInterruptCallback != NULL) {
     this->handleInterruptCallback = handleInterruptCallback;
     attachInterrupt(digitalPinToInterrupt(inPin), handleInterruptCallback, CHANGE);
+  } else {
+    attachInterrupt(digitalPinToInterrupt(inPin), [this]() {
+      this->handleInterrupt();
+    }, CHANGE);
   }
   activateBoiler();
   status = OpenThermStatus::READY;
