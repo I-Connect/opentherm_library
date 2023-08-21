@@ -53,6 +53,16 @@ void OpenTherm::begin(void(*handleInterruptCallback)(void))
   begin(handleInterruptCallback, NULL);
 }
 
+void OpenTherm::begin() {
+  pinMode(inPin, INPUT);
+  pinMode(outPin, OUTPUT);
+
+  attachInterrupt(digitalPinToInterrupt(inPin), [this]() {
+    this->handleInterrupt();
+  }, CHANGE);
+  status = OpenThermStatus::READY;
+}
+
 bool IRAM_ATTR OpenTherm::isReady()
 {
   return status == OpenThermStatus::READY;

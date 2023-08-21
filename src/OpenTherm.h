@@ -118,6 +118,7 @@ class OpenTherm
     void begin(void(*handleInterruptCallback)(void));
     void begin(void(*handleInterruptCallback)(void), void(*processResponseCallback)(unsigned long, OpenThermResponseStatus));
     void begin(std::function<void(unsigned long, OpenThermResponseStatus)> processResponseFunction);
+    void begin();
     bool isReady();
     unsigned long sendRequest(unsigned long request);
     bool sendResponse(unsigned long request);
