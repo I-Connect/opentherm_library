@@ -317,8 +317,8 @@ bool OpenTherm::isValidResponse(unsigned long response)
   if (parity(response)) {
     return false;
   }
-  byte msgType = (response << 1) >> 29;
-  return msgType == READ_ACK || msgType == WRITE_ACK;
+  OpenThermMessageType msgType = (OpenThermMessageType)((response << 1) >> 29);
+  return msgType == OpenThermMessageType::READ_ACK || msgType == OpenThermMessageType::WRITE_ACK;
 }
 
 bool OpenTherm::isValidRequest(unsigned long request)
@@ -326,8 +326,8 @@ bool OpenTherm::isValidRequest(unsigned long request)
   if (parity(request)) {
     return false;
   }
-  byte msgType = (request << 1) >> 29;
-  return msgType == READ_DATA || msgType == WRITE_DATA;
+  OpenThermMessageType msgType = (OpenThermMessageType)((response << 1) >> 29);
+  return msgType == OpenThermMessageType::READ_DATA || msgType == OpenThermMessageType::WRITE_DATA;
 }
 
 void OpenTherm::end() {
@@ -339,13 +339,13 @@ void OpenTherm::end() {
 const char* OpenTherm::statusToString(OpenThermResponseStatus status)
 {
   switch (status) {
-    case NONE:
+    case OpenThermResponseStatus::NONE:
       return "NONE";
-    case SUCCESS:
+    case OpenThermResponseStatus::SUCCESS:
       return "SUCCESS";
-    case INVALID:
+    case OpenThermResponseStatus::INVALID:
       return "INVALID";
-    case TIMEOUT:
+    case OpenThermResponseStatus::TIMEOUT:
       return "TIMEOUT";
     default:
       return "UNKNOWN";
@@ -355,21 +355,21 @@ const char* OpenTherm::statusToString(OpenThermResponseStatus status)
 const char* OpenTherm::messageTypeToString(OpenThermMessageType message_type)
 {
   switch (message_type) {
-    case READ_DATA:
+    case OpenThermMessageType::READ_DATA:
       return "READ_DATA";
-    case WRITE_DATA:
+    case OpenThermMessageType::WRITE_DATA:
       return "WRITE_DATA";
-    case INVALID_DATA:
+    case OpenThermMessageType::INVALID_DATA:
       return "INVALID_DATA";
-    case RESERVED:
+    case OpenThermMessageType::RESERVED:
       return "RESERVED";
-    case READ_ACK:
+    case OpenThermMessageType::READ_ACK:
       return "READ_ACK";
-    case WRITE_ACK:
+    case OpenThermMessageType::WRITE_ACK:
       return "WRITE_ACK";
-    case DATA_INVALID:
+    case OpenThermMessageType::DATA_INVALID:
       return "DATA_INVALID";
-    case UNKNOWN_DATA_ID:
+    case OpenThermMessageType::UNKNOWN_DATA_ID:
       return "UNKNOWN_DATA_ID";
     default:
       return "UNKNOWN";

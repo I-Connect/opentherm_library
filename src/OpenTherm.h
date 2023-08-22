@@ -16,7 +16,7 @@ P MGS-TYPE SPARE DATA-ID  DATA-VALUE
 #include <stdint.h>
 #include <Arduino.h>
 
-enum OpenThermResponseStatus {
+enum class OpenThermResponseStatus {
   NONE,
   SUCCESS,
   INVALID,
@@ -24,7 +24,7 @@ enum OpenThermResponseStatus {
 };
 
 
-enum OpenThermMessageType {
+enum class OpenThermMessageType {
   /*  Master to Slave */
   READ_DATA       = B000,
   READ            = READ_DATA, // for backwared compatibility
