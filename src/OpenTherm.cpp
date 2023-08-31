@@ -116,14 +116,15 @@ bool OpenTherm::sendRequestAync(unsigned long request)
   status = OpenThermStatus::REQUEST_SENDING;
   response = 0;
   responseStatus = OpenThermResponseStatus::NONE;
-
+  //Prevent switching to other tasks as there is a delay
+  vTaskSuspendAll();
   sendBit(HIGH); //start bit
   for (int i = 31; i >= 0; i--) {
     sendBit(bitRead(request, i));
   }
   sendBit(HIGH); //stop bit
   setIdleState();
-
+  xTaskResumeAll();
   status = OpenThermStatus::RESPONSE_WAITING;
   responseTimestamp = micros();
   return true;
@@ -134,6 +135,7 @@ unsigned long OpenTherm::sendRequest(unsigned long request)
   if (!sendRequestAync(request)) {
     return 0;
   }
+  //receive response process
   while (!isReady()) {
     process();
     yield();
