@@ -236,7 +236,7 @@ void OpenTherm::process()
   if (st != OpenThermStatus::NOT_INITIALIZED && st != OpenThermStatus::DELAY && (newTs - ts) > 1000000) {
     status = OpenThermStatus::READY;
     responseStatus = OpenThermResponseStatus::TIMEOUT;
-    log_w("Response Status response TimeOut");
+    // log_w("Response Status response TimeOut");
     if (processResponseCallback != NULL) {
       processResponseCallback(response, responseStatus);
     }
@@ -247,7 +247,7 @@ void OpenTherm::process()
   else if (st == OpenThermStatus::RESPONSE_INVALID) {
     status = OpenThermStatus::DELAY;
     responseStatus = OpenThermResponseStatus::INVALID;
-    log_w("Response Status response TimeOut");
+    // log_w("Response Status response TimeOut");
     if (processResponseCallback != NULL) {
       processResponseCallback(response, responseStatus);
     }
