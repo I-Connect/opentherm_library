@@ -191,7 +191,7 @@ void IRAM_ATTR OpenTherm::handleInterrupt()
     }
     else {
       status = OpenThermStatus::RESPONSE_INVALID;
-      log_w("Status response invalid 1");
+      isr_log_w("St inv 1");
       responseTimestamp = newTs;
     }
   }
@@ -203,7 +203,7 @@ void IRAM_ATTR OpenTherm::handleInterrupt()
     }
     else {
       status = OpenThermStatus::RESPONSE_INVALID;
-      log_w("Status response invalid 2");
+      isr_log_w("St inv 2");
       responseTimestamp = newTs;
     }
   }
